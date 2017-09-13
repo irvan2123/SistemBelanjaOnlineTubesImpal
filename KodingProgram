@@ -1,0 +1,498 @@
+program tubes;
+uses crt;
+type indeks=0..100;
+type
+	account = record
+			hp,alamat,email,nama,user,pass,u,p:array [indeks] of string;
+			{user,pass: createAccount || u,p: signIn}
+	end;
+
+var
+   acc:account;
+   tempuser,temppass:string;
+   r:integer; //indeks array
+   tload,n,b,x,i:integer;
+   pilNik,pilCat:array [indeks] of SmallInt;
+	//opening
+   v:integer;
+   pil:char;
+	
+
+
+procedure Loading1;
+var
+   x, y, z      :integer;
+   count        :integer;
+begin
+     clrscr;
+
+     (*Pembatas Loading*)
+     gotoxy(5, 5);
+     write('[');
+
+     gotoxy(30, 5);
+     write(']');
+
+     (*Efek Loading Berjalan*)
+     count := 0;
+     repeat
+     begin
+
+          (*Perulangan untuk loading kekanan*)
+          y := 0;
+          z := 6;
+          for x := 6 to 33 do
+          begin
+               delay(5);
+               if(y > 3) then
+               begin
+                    gotoxy(z, wherey);
+                    write(' ');
+                    inc(z);
+               end;
+
+               if(x <= 29) then
+               begin
+                    gotoxy(x, wherey);
+                    write('=');
+                    inc(y);
+               end;
+          end;
+
+          (*Perulangan untuk loadin ke kiri*)
+          y := 0;
+          z := 29;
+          for x := 29 downto 2 do
+          begin
+               delay(5);
+               if(y > 3) then
+               begin
+                    gotoxy(z, wherey);
+                    write(' ');
+                    dec(z);
+               end;
+
+               if(x >= 6) then
+               begin
+                    gotoxy(x, wherey);
+                    write('=');
+                    inc(y);
+               end;
+          end;
+     end;
+
+     inc(count);
+     until count = 1;
+
+    // gotoxy(1, wherey+2);
+     //write('Press any key . . .');
+     //readkey;
+end;
+
+
+
+procedure createAccount;
+var
+	i:char;
+begin
+	i:='n';
+	while i<>'y' do
+	if i<>'y' then
+		begin
+			clrscr;
+			Writeln('Silahkan isi form registrasi account ini');
+			writeln('=================================================================');
+			write('= Nama Lengkap  : ');readln(acc.nama[r]);
+			write('= Username      : ');readln(acc.user[r]);
+			write('= Password      : ');readln(acc.pass[r]);
+			write('= Email         : ');readln(acc.email[r]);
+			write('= No.HP         : ');readln(acc.hp[r]);
+			write('= Alamat        : ');readln(acc.alamat[r]);
+			writeln('=================================================================');
+			write('Apakah anda yakin telah menginputkan informasi dengan benar? y/n : ');
+			i:=readkey;
+		end;
+	
+end;
+
+procedure signAdmin;
+var
+	x:integer;
+begin
+	for x:=1 to r do
+	begin
+		writeln('=====This is your profile=====');
+        writeln('Name       : ',acc.nama[r]);
+		writeln('Username   : ',acc.user[r]);
+		writeln('Password   : *******');
+        writeln('Email      : ',acc.email[r]);
+        writeln('Alamat     : ',acc.alamat[r]);
+        writeln('No.HP      : ',acc.hp[r]);
+	end;
+
+end;
+procedure signIn1;
+var
+	n,pil:char;
+	a:integer;
+begin
+
+     clrscr;
+	 a:=0;
+	writeln('Selamat datang di Aplikasi Jay Weeding Organizer');
+	writeln('=======================================================');
+	writeln;
+	writeln('Kami hadir');
+	writeln('           untuk membuat');
+	writeln('                          hari penting dalam hidup anda');
+	writeln;
+	writeln('_______________MENJADI LEBIH SEMPURNA__________________');
+	writeln;
+	writeln('=======================================================');
+
+	write('Anda sudah punya akun? (y/n)');
+	writeln;
+	n:=readkey;
+	repeat
+	case n of
+		'y':begin
+			 clrscr;
+			 x:=0;
+			 //t:=0;
+			 //while t=0 do
+			 for i:=1 to 3 do
+			 begin
+				writeln('Please login with your account');
+				writeln('==============================');
+				writeln;
+				write('Username : ');readln(acc.u[r]);
+				write('Password : ');readln(acc.p[r]);
+				//if tempuser<> then
+					
+				if acc.user[r]=acc.u[r] then
+				begin
+					    if acc.p[r]=acc.pass[r] then
+						begin
+							x:= 1;
+							break;
+					   end;
+				end;
+				clrscr;
+				writeln('Username or password didnt match');
+				writeln;
+			end;
+			clrscr;
+			if x=0 then
+				begin
+					writeln('3x GAGAL : Silahkan coba lagi');
+					readln;
+					for tload:=1 to 12 do
+						begin
+							loading1;
+						end;
+					
+					signIn1;
+				end
+			else if x=1 then
+				begin
+					// showMenu;//keluar
+					a:=1;
+				end;
+			end;
+		'n':begin
+				createAccount;
+				n:='y';
+				a:=0;
+			end;
+		else
+			clrscr;
+			signin1;
+			
+	end;
+	until(a=1)
+end;
+procedure showMenu;
+var
+
+        ViewPilBrg,viewcat,x,pilih:char;
+        DD,MM,YYYY,total,harganikah,hargacatering:array [indeks] of longint;
+		
+
+
+begin
+		clrscr;
+		writeln('Hello, Welcome back ',acc.user[r],'!');
+        writeln;
+        writeln('=====This is your profile=====');
+        writeln;
+        writeln('Name   : ',acc.nama[r]);
+        writeln('Alamat : ',acc.alamat[r]);
+        writeln('Email  : ',acc.email[r]);
+        writeln;
+        writeln('click enter to show Menu');
+		readkey;
+
+		loading1;
+		//menu
+        x:='0';
+        repeat
+		loading1;
+        clrscr;
+        writeln('============Menu============');
+        writeln('= 1.Beli                   =');
+        writeln('= 2.Jual                   =');
+        writeln('= 3.Hubungi Kami           =');
+        writeln('= 4.Lihat Profile Saya     =');
+		writeln('= 9.Signout                =');
+        writeln('= 0.exit                   =');
+        writeln('============================');
+        write('Pilih Menu : ');
+		//writeln('============================');
+        pilih:=readkey;
+
+        case pilih of
+        '1':begin
+				loading1;
+                clrscr;
+                writeln('============== Menu Beli ================');
+                writeln;
+                writeln('1.Pilih Barang                          =');
+                writeln('2.Kerangjang Belanja                    =');
+				writeln('3.Bayar                                 =');
+                writeln;
+				write('pilih menu : ');
+				//viewnikah:=readkey;
+				case ViewPilBrg of
+				'1':begin
+					writeln;
+					writeln;
+					writeln('Test');
+					end;
+				'2':begin
+					writeln;
+					writeln;
+					writeln('test');
+					end;
+				'3':begin
+					writeln;
+					writeln;
+					writeln('test');
+					end;
+				end;
+				writeln;
+				writeln('click "0" to back of Menu');
+				x:=readkey;
+			end;
+        '2':begin
+				loading1;
+                clrscr;
+                writeln('===========Menu Jual=============');
+                writeln;
+                writeln('1.Input Barang					  ');
+                writeln('2.Edit Barang					  ');
+                writeln('3.Lihat Pesanan Masuk			  ');
+				write('pilih menu untuk melihat deskripsi paket : ');
+				viewcat:=readkey;
+				case viewcat of
+				'1':begin
+					writeln;
+					writeln;
+					writeln('test');
+					end;
+				'2':begin
+					writeln;
+					writeln;
+					writeln('test');
+					end;
+				'3':begin
+					writeln;
+					writeln;
+					writeln('test');
+					end;
+				end;
+
+				writeln;
+                writeln('click "0" to back of Menu');
+                x:=readkey;
+        end;
+        
+        '3':begin
+				loading1;
+                clrscr;
+                writeln('=====Hubungi Kami=====');
+                writeln;
+
+                writeln('click "0" to back of Menu');
+                x:=readkey;
+        end;
+        
+        '4':begin
+				loading1;
+				clrscr;
+                writeln('=====This is your profile=====');
+                writeln('Name       : ',acc.nama[r]);
+				writeln('Username   : ',acc.user[r]);
+				writeln('Password   : *******');
+                writeln('Email      : ',acc.email[r]);
+                writeln('Alamat     : ',acc.alamat[r]);
+                writeln('No.HP      : ',acc.hp[r]);
+                writeln;
+                writeln('click "0" to back of Menu');
+                x:=readkey;
+                end;
+		'9':begin
+				loading1;
+                x:='9';
+	        end;
+        '0':begin
+				loading1;
+                x:='9';
+            end
+		else	
+			writeln('salah');
+		end;
+
+
+        until (x='9');
+
+end;
+
+procedure signIn;
+var
+	n,pil:char;
+	a:integer;
+begin
+
+     clrscr;
+	 a:=0;
+	writeln('       Selamat datang di Aplikasi Warungpedia          ');
+	writeln('=======================================================');
+	writeln;
+	writeln('Kami hadir                                             ');
+	writeln('           untuk membuat pengalaman                    ');
+	writeln('                                   belanja online anda ');
+	writeln;
+	writeln('___________________MUDAH dan AMAN______________________');
+	writeln;
+	writeln('=======================================================');
+
+	write('Anda sudah punya akun? (y/n)');
+	writeln;
+	n:=readkey;
+	repeat
+	case n of
+		'y':begin
+			 clrscr;
+			 x:=0;
+			 //t:=0;
+			 //while t=0 do
+			 for i:=1 to 3 do
+			 begin
+				writeln('Please login with your account');
+				writeln('==============================');
+				writeln;
+				write('Username : ');readln(acc.u[r]);
+				write('Password : ');readln(acc.p[r]);
+				//if tempuser<> then
+					
+				if acc.user[r]=acc.u[r] then
+				begin
+					    if acc.p[r]=acc.pass[r] then
+						begin
+							x:= 1;
+							break;
+					   end;
+				end;
+				clrscr;
+				writeln('Username or password didnt match');
+				writeln;
+			end;
+			clrscr;
+			if x=0 then
+				begin
+					writeln('3x GAGAL : Silahkan coba lagi');
+					readln;
+					for tload:=1 to 12 do
+						begin
+							loading1;
+						end;
+					
+					signIn;
+				end
+			else if x=1 then
+				begin
+					 showMenu;//keluar
+					a:=1;
+				end;
+			end;
+		'n':begin
+				createAccount;
+				n:='y';
+				a:=0;
+			end;
+		else
+			clrscr;
+			signin;
+			
+	end;
+	until(a=1)
+end;
+
+
+
+procedure opening;
+var	
+	pil:char;
+	x:integer;
+begin
+	x:=0; //agar bisa mengulang sampe x=1 exit
+	repeat	
+	writeln('Selamat datang');
+	writeln('1. Admin');
+	writeln('2. Customer');
+	writeln('0. exit');
+	write('pilih menu : ');
+	pil:=readkey;;
+	
+	case pil of
+	'1': begin
+			clrscr;
+			//signAdmin;
+		end;
+
+	'2':begin	
+			clrscr;
+			loading1;
+			x:=1;
+			
+		end;
+	'0':begin
+			x:=1;
+			clrscr;
+			loading1;
+			
+                end
+	else
+		begin
+			
+			loading1;
+			clrscr;
+			x:=0;
+		end;
+	end;
+	until(x=1)
+end;
+
+
+begin
+	clrscr;
+	r:=1;
+    acc.user[r]:='r4r4f';
+    acc.pass[r]:='e3r44f';
+	loading1;
+	clrscr;
+	opening;
+	signIn;
+	
+
+end.
