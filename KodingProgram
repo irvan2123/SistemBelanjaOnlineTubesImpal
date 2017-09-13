@@ -139,14 +139,14 @@ begin
 
      clrscr;
 	 a:=0;
-	writeln('Selamat datang di Aplikasi Jay Weeding Organizer');
+	writeln('       Selamat datang di Aplikasi Warungpedia          ');
 	writeln('=======================================================');
 	writeln;
-	writeln('Kami hadir');
-	writeln('           untuk membuat');
-	writeln('                          hari penting dalam hidup anda');
+	writeln('Kami hadir                                             ');
+	writeln('           untuk membuat pengalaman                    ');
+	writeln('                                   belanja online anda ');
 	writeln;
-	writeln('_______________MENJADI LEBIH SEMPURNA__________________');
+	writeln('___________________MUDAH dan AMAN______________________');
 	writeln;
 	writeln('=======================================================');
 
