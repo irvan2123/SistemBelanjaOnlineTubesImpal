@@ -16,7 +16,7 @@ var
 	//opening
    v:integer;
    pil:char;
-	
+   DataAcc,DataBrg: text;
 
 
 procedure Loading1;
@@ -95,6 +95,8 @@ procedure createAccount;
 var
 	i:char;
 begin
+	Assign(DataAcc,'Account.txt');
+	Rewrite(DataAcc);
 	i:='n';
 	while i<>'y' do
 	if i<>'y' then
@@ -111,8 +113,9 @@ begin
 			writeln('=================================================================');
 			write('Apakah anda yakin telah menginputkan informasi dengan benar? y/n : ');
 			i:=readkey;
+			write(DataAcc);
 		end;
-	
+	close(DataAcc);
 end;
 
 procedure signAdmin;
@@ -168,7 +171,7 @@ begin
 				write('Username : ');readln(acc.u[r]);
 				write('Password : ');readln(acc.p[r]);
 				//if tempuser<> then
-					
+
 				if acc.user[r]=acc.u[r] then
 				begin
 					    if acc.p[r]=acc.pass[r] then
@@ -190,7 +193,7 @@ begin
 						begin
 							loading1;
 						end;
-					
+
 					signIn1;
 				end
 			else if x=1 then
@@ -207,20 +210,37 @@ begin
 		else
 			clrscr;
 			signin1;
-			
+
 	end;
 	until(a=1)
 end;
 procedure showMenu;
+type
+	data_barang = record
+			nm_brg:array [indeks] of string;
+			hrg_brg: array [indeks] of longint;
+			stok_brg: array [indeks] of integer;
+			jumlah_brg: array [indeks] of integer;
+	end;
 var
 
-        ViewPilBrg,viewcat,x,pilih:char;
-        DD,MM,YYYY,total,harganikah,hargacatering:array [indeks] of longint;
-		
+        ViewMenuBeli,ViewPilBrg,ViewHandphone,viewchart,viewpay,viewcat,pilihmenu:char;
+        x: char;
+		//pengulangan
+		hp,mnBeli,pilbrg,chart,pay:char;
+		//indeks
+		i:integer;
+		//pembelian
+		shop:data_barang;
+		j: integer;
+
 
 
 begin
 		clrscr;
+		//inisialisasi pembelian
+		shop.nm_brg[i]:=('Belum Ada Barang');
+		shop.hrg_brg[i]:=0;
 		writeln('Hello, Welcome back ',acc.user[r],'!');
         writeln;
         writeln('=====This is your profile=====');
@@ -236,7 +256,7 @@ begin
 		//menu
         x:='0';
         repeat
-		loading1;
+		//loading1;
         clrscr;
         writeln('============Menu============');
         writeln('= 1.Beli                   =');
@@ -246,42 +266,166 @@ begin
 		writeln('= 9.Signout                =');
         writeln('= 0.exit                   =');
         writeln('============================');
-        write('Pilih Menu : ');
+        write('Pilih Menu :                  ');
 		//writeln('============================');
-        pilih:=readkey;
+        pilihmenu:=readkey;
 
-        case pilih of
+        case pilihmenu of
         '1':begin
-				loading1;
+				//loading1;
+				mnBeli:='9';
+				repeat
                 clrscr;
                 writeln('============== Menu Beli ================');
                 writeln;
                 writeln('1.Pilih Barang                          =');
                 writeln('2.Kerangjang Belanja                    =');
 				writeln('3.Bayar                                 =');
+				writeln('0.Back                                  =');
                 writeln;
 				write('pilih menu : ');
-				//viewnikah:=readkey;
-				case ViewPilBrg of
+				ViewMenuBeli:=readkey;
+				case ViewMenuBeli of
 				'1':begin
-					writeln;
-					writeln;
-					writeln('Test');
+						//loading1;
+						pilbrg:='9';
+						repeat
+						clrscr;
+						writeln('============== Pilih Barang ================');
+						writeln;
+						writeln('1.Handphone                                =');
+						writeln('2.Alat Rumah Tangga                        =');
+						writeln('3.Elektronik                               =');
+						writeln('0.Back                                     =');
+						writeln;
+						write('pilih menu : ');
+
+						ViewPilBrg:=readkey;
+						case ViewPilBrg of
+							'1':begin
+									//loading1;
+									hp:='9';
+
+									repeat
+										clrscr;
+
+										writeln('============== Handphone ==================');
+										writeln;
+										writeln('1.Samsung Galaxy S7        Rp9.000.000,-   =');
+										writeln('2.Samsung Galaxy S8        Rp10.000.000,- =');
+										writeln('3.Samsung Galaxy Note 8    Rp13.000.000,- =');
+										writeln('0.Back                                    =');
+										writeln;
+										writeln('pilih menu : ');
+										i:=0;
+										ViewHandphone:=readkey;
+										case ViewHandphone of
+										'1':begin
+
+												writeln('1.Samsung Galaxy S7      Rp9.000.000,-     =');
+												shop.nm_brg[i]:=('Samsung Galaxy S7');
+												shop.hrg_brg[i]:=9000000;
+												i:=i+1;
+												writeln('Succes Add to Chart');
+
+											end;
+										'2':begin
+												writeln('2.Samsung Galaxy S8        Rp10.000.000,- =');
+												shop.nm_brg[i]:=('Samsung Galaxy S8');
+												shop.hrg_brg[i]:=(10000000);
+												i:=i+1;
+												writeln('Succes Add to Chart');
+												//readln;
+											end;
+										'3':begin
+												writeln('3.Samsung Galaxy Note 8    Rp13.000.000,- =');
+												shop.nm_brg[i]:=('Samsung Galaxy Note 8');
+												shop.hrg_brg[i]:=(13000000);
+												i:=i+1;
+												writeln('Succes Add to Chart');
+												//readln;
+											end;
+										'0':begin
+												hp:='0';
+											end
+										else
+											writeln('Pilihan Tidak Ada');
+
+										end;
+										writeln;
+
+										writeln('click "0" to back of Menu');
+										hp:=readkey;
+										writeln;
+
+										//clrscr;
+
+									until(hp='0');
+								end;
+							'2':begin
+									writeln('test2');
+									readln;
+								end;
+							'3':begin
+									writeln('test3');
+									readln;
+								end;
+							'0':begin
+									pilbrg:='0';
+								end;
+
 					end;
+					until(pilbrg='0');
+					end;
+
 				'2':begin
-					writeln;
-					writeln;
-					writeln('test');
+						clrscr;
+						chart:='9';
+						writeln('============== Chart ================');
+
+						writeln('Nama Barang : ' ,shop.nm_brg[i]);
+						writeln('Harga Barang: ',shop.hrg_brg[i]);
+						viewchart:=readkey;
+						case viewchart of
+						'1':begin
+								writeln('ok');
+							end;
+						'0':begin
+								chart:='0';
+							end;
+						end;
+						writeln;
+						writeln('click "0" to back of Menu');
+						viewchart:=readkey;
 					end;
 				'3':begin
-					writeln;
-					writeln;
-					writeln('test');
+					clrscr;
+						pay:='9';
+						writeln('============== Payment ================');
+						viewpay:=readkey;
+						case viewchart of
+						'1':begin
+								writeln('ok');
+							end;
+						'0':begin
+								pay:='0';
+							end;
+						end;
+						writeln;
+						writeln('click "0" to back of Menu');
+						viewpay:=readkey;
+					end;
+				'0':begin
+						mnBeli:='0';
 					end;
 				end;
-				writeln;
-				writeln('click "0" to back of Menu');
-				x:=readkey;
+				until(mnBeli='0');
+
+				//writeln;
+				//x:=readkey;
+				//writeln('click "0" to back of Menu');
+				//writeln('click "9" to Exit');
+
 			end;
         '2':begin
 				loading1;
@@ -295,9 +439,18 @@ begin
 				viewcat:=readkey;
 				case viewcat of
 				'1':begin
+					Assign(DataBrg,'Barang.txt');
+					Rewrite(DataBrg);
 					writeln;
 					writeln;
-					writeln('test');
+					writeln('Masukan Nama barang : ');
+					readln(shop.nm_brg[j]);
+					writeln('Masukan harga barang : ');
+					readln(shop.hrg_brg[j]);
+					writeln('Masukan jumlah stok : ');
+					readln(shop.stok_brg[j]);
+					write(DataBrg);
+					close(DataBrg);
 					end;
 				'2':begin
 					writeln;
@@ -315,7 +468,7 @@ begin
                 writeln('click "0" to back of Menu');
                 x:=readkey;
         end;
-        
+
         '3':begin
 				loading1;
                 clrscr;
@@ -325,7 +478,7 @@ begin
                 writeln('click "0" to back of Menu');
                 x:=readkey;
         end;
-        
+
         '4':begin
 				loading1;
 				clrscr;
@@ -342,13 +495,13 @@ begin
                 end;
 		'9':begin
 				loading1;
-                x:='9';
+                signIn1;
 	        end;
         '0':begin
 				loading1;
                 x:='9';
             end
-		else	
+		else
 			writeln('salah');
 		end;
 
@@ -394,7 +547,7 @@ begin
 				write('Username : ');readln(acc.u[r]);
 				write('Password : ');readln(acc.p[r]);
 				//if tempuser<> then
-					
+
 				if acc.user[r]=acc.u[r] then
 				begin
 					    if acc.p[r]=acc.pass[r] then
@@ -416,7 +569,7 @@ begin
 						begin
 							loading1;
 						end;
-					
+
 					signIn;
 				end
 			else if x=1 then
@@ -433,7 +586,7 @@ begin
 		else
 			clrscr;
 			signin;
-			
+
 	end;
 	until(a=1)
 end;
@@ -441,43 +594,43 @@ end;
 
 
 procedure opening;
-var	
+var
 	pil:char;
 	x:integer;
 begin
 	x:=0; //agar bisa mengulang sampe x=1 exit
-	repeat	
+	repeat
 	writeln('Selamat datang');
 	writeln('1. Admin');
 	writeln('2. Customer');
 	writeln('0. exit');
 	write('pilih menu : ');
 	pil:=readkey;;
-	
+
 	case pil of
 	'1': begin
 			clrscr;
 			//signAdmin;
 		end;
 
-	'2':begin	
+	'2':begin
 			clrscr;
 			loading1;
 			x:=1;
-			
+
 		end;
 	'0':begin
 			x:=1;
 			clrscr;
 			loading1;
-			
-                end
+
+        end
 	else
 		begin
-			
+
 			loading1;
 			clrscr;
-			x:=0;
+			x:=1;
 		end;
 	end;
 	until(x=1)
@@ -487,12 +640,13 @@ end;
 begin
 	clrscr;
 	r:=1;
-    acc.user[r]:='r4r4f';
-    acc.pass[r]:='e3r44f';
+    acc.user[r]:='.';
+    acc.pass[r]:='.';
 	loading1;
 	clrscr;
 	opening;
 	signIn;
-	
+
 
 end.
+
